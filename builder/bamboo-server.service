@@ -1,0 +1,11 @@
+[Unit]
+Description=Bamboo service
+After=network.target
+
+[Service]
+ExecStart=/opt/bamboo/bamboo -config /etc/bamboo/production.json -log /var/log/bamboo-server.log -bind 127.0.0.1:2255
+Restart=on-failure
+RestartSec=5s
+
+[Install]
+WantedBy=multi-user.target

@@ -2,18 +2,18 @@
 set -e
 
 DATADIR="/var/bamboo"
-OPT_DEFAULT_CONFIG_DIR="/opt/bamboo/config"
+OPT_DEFAULT_CONFIG_DIR="/etc/bamboo"
 USER="bamboo"
 GROUP="bamboo"
 SHELL="/bin/false"
 
 case "$1" in
-	configure)
+	1|2)
         if [ ! -d "${DATADIR}/log" ]; then
 			mkdir -p ${DATADIR}/log
 		fi
 
-        # Copy haproxy template without overrides
+		# Copy haproxy template without overrides
 		cp -n ${OPT_DEFAULT_CONFIG_DIR}/haproxy_template.cfg ${DATADIR}
 		# Copy example to production without overrides
 		cp -n ${OPT_DEFAULT_CONFIG_DIR}/production.example.json ${DATADIR}/production.json
@@ -29,11 +29,4 @@ case "$1" in
 
 	;;
 
-	abort-upgrade|abort-remove|abort-deconfigure)
-	;;
-
-	*)
-		echo "postinst called with unknown argument \`$1'" >&2
-		exit 1
-	;;
 esac
